@@ -139,13 +139,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="NodeDynamic.cpp" />
     <ClCompile Include="NodeStatic.cpp" />
     <ClCompile Include="TEP2_Tree.cpp" />
+    <ClCompile Include="TreeDynamic.cpp" />
     <ClCompile Include="TreeStatic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Consts.h" />
+    <ClInclude Include="NodeDynamic.h" />
     <ClInclude Include="NodeStatic.h" />
+    <ClInclude Include="TreeDynamic.h" />
     <ClInclude Include="TreeStatic.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

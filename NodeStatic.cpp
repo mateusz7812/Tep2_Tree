@@ -1,12 +1,12 @@
 #include "NodeStatic.h"
-
+#include <iostream>
 #include "Consts.h"
 
 NodeStatic::NodeStatic()
 {
 	_val = 0;
 	_parent_node = NULL;
-	std::cout << NODE_NOPARAM_CONSTRUCTOR_TEXT << std::endl;
+	std::cout << NODE_NO_PARAM_CONSTRUCTOR_TEXT << std::endl;
 }
 
 NodeStatic::NodeStatic(const NodeStatic& other)
@@ -18,7 +18,7 @@ NodeStatic::NodeStatic(const NodeStatic& other)
 }
 
 NodeStatic::NodeStatic(NodeStatic&& other)
-{	
+{
 	_parent_node = other._parent_node;
 	other._parent_node = NULL;
 	_val = other._val;
@@ -30,7 +30,7 @@ NodeStatic::NodeStatic(NodeStatic&& other)
 
 NodeStatic::~NodeStatic()
 {
-	std::cout << NODE_DESTRUCTOR_TEXT << " val:" << _val <<std::endl;
+	std::cout << NODE_DESTRUCTOR_TEXT << " val:" << _val << std::endl;
 	_children.clear();
 }
 
@@ -49,6 +49,12 @@ void NodeStatic::set_parent(NodeStatic* parent)
 	_parent_node = parent;
 }
 
+void NodeStatic::add_child(NodeStatic* node)
+{
+	_children.push_back(*node);
+	node->set_parent(this);
+}
+
 void NodeStatic::add_new_child()
 {
 	NodeStatic child;
@@ -60,7 +66,7 @@ NodeStatic* NodeStatic::get_child(int child_offset)
 {
 	if (child_offset < 0 || child_offset >= (int)_children.size())
 		return NULL;
-	return &_children.at(child_offset);
+	return &_children[child_offset];
 }
 
 void NodeStatic::print()
@@ -71,7 +77,7 @@ void NodeStatic::print()
 void NodeStatic::print_up()
 {
 	print();
-	if (_parent_node != NULL) 
+	if (_parent_node != NULL)
 		_parent_node->print_up();
 }
 
@@ -86,9 +92,12 @@ void NodeStatic::print_all_below()
 
 NodeStatic& NodeStatic::operator=(const NodeStatic& other)
 {
-	_parent_node = other._parent_node;
-	_val = other._val;
-	_children = other._children;
+	if (this != &other)
+	{
+		_parent_node = other._parent_node;
+		_val = other._val;
+		_children = other._children;
+	}
 	return *this;
 }
 
@@ -101,4 +110,28 @@ NodeStatic& NodeStatic::operator=(NodeStatic&& other)
 	_children = move(other._children);
 	other._children.clear();
 	return *this;
+}
+
+NodeStatic* NodeStatic::get_parent()
+{
+	return _parent_node;
+}
+
+int NodeStatic::get_child_index(NodeStatic* node)
+{
+	for (int i = 0; i < static_cast<int>(_children.size()); i++)
+	{
+		if (_children[i]._val == node->_val)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+void NodeStatic::remove_child(NodeStatic* node)
+{
+	node->set_parent(NULL);
+	const int child_index = get_child_index(node);
+	_children.erase(_children.begin() + child_index);
 }

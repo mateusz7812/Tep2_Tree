@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 
 #include "NodeStatic.h"
+#include "TreeDynamic.h"
 #include "TreeStatic.h"
 
 void node_print_test()
@@ -10,7 +11,7 @@ void node_print_test()
 
 	node.add_new_child();
 	node.get_child(0)->set_value(2);
-	
+
 	node.add_new_child();
 	node.get_child(1)->set_value(3);
 
@@ -30,7 +31,7 @@ void node_add_child_test()
 {
 	NodeStatic root;
 	std::cout << "root created" << std::endl << std::endl;
-	
+
 	root.add_new_child();
 	root.get_child(0)->set_value(1);
 	std::cout << "child added" << std::endl << std::endl;
@@ -39,16 +40,16 @@ void node_add_child_test()
 	root.get_child(1)->set_value(2);
 	std::cout << "child added" << std::endl << std::endl;
 
-	
+
 	root.get_child(0)->add_new_child();
 	root.get_child(0)->get_child(0)->set_value(11);
 	std::cout << "child added to first child" << std::endl << std::endl;
 
-	root.get_child(0)->add_new_child();	
+	root.get_child(0)->add_new_child();
 	root.get_child(0)->get_child(1)->set_value(12);
 	std::cout << "child added to first child" << std::endl << std::endl;
 
-	
+
 	root.get_child(1)->add_new_child();
 	root.get_child(1)->get_child(0)->set_value(21);
 	std::cout << "child added to second child" << std::endl << std::endl;
@@ -57,7 +58,7 @@ void node_add_child_test()
 	root.get_child(1)->get_child(1)->set_value(22);
 	std::cout << "child added to second child" << std::endl << std::endl;
 
-	
+
 	std::cout << "test print up from node 12:";
 	root.get_child(0)->get_child(1)->print_up();
 
@@ -71,7 +72,7 @@ void tree_destructor_test()
 
 	std::cout << std::endl << "Tree root value being set to 1..." << std::endl;
 	tree.get_root()->set_value(1);
-	
+
 	std::cout << std::endl << "Tree destructing..." << std::endl;
 }
 
@@ -79,8 +80,24 @@ void tree_test()
 {
 	TreeStatic tree;
 	tree.get_root()->set_value(1);
+
 	tree.get_root()->add_new_child();
 	tree.get_root()->get_child(0)->set_value(2);
+
+	tree.get_root()->add_new_child();
+	tree.get_root()->get_child(1)->set_value(3);
+
+	tree.get_root()->get_child(0)->add_new_child();
+	tree.get_root()->get_child(0)->get_child(0)->set_value(4);
+
+	tree.get_root()->get_child(0)->add_new_child();
+	tree.get_root()->get_child(0)->get_child(1)->set_value(5);
+
+	tree.get_root()->get_child(1)->add_new_child();
+	tree.get_root()->get_child(1)->get_child(0)->set_value(6);
+
+	tree.get_root()->get_child(1)->add_new_child();
+	tree.get_root()->get_child(1)->get_child(1)->set_value(7);
 
 	std::cout << std::endl << "print tree: ";
 	tree.print_tree();
@@ -88,7 +105,173 @@ void tree_test()
 
 }
 
+
+void dynamic_tree_test()
+{
+	TreeDynamic tree;
+	tree.get_root()->set_value(1);
+
+	tree.get_root()->add_new_child();
+	tree.get_root()->get_child(0)->set_value(2);
+
+	tree.get_root()->add_new_child();
+	tree.get_root()->get_child(1)->set_value(3);
+
+	tree.get_root()->get_child(0)->add_new_child();
+	tree.get_root()->get_child(0)->get_child(0)->set_value(4);
+
+	tree.get_root()->get_child(0)->add_new_child();
+	tree.get_root()->get_child(0)->get_child(1)->set_value(5);
+
+	tree.get_root()->get_child(1)->add_new_child();
+	tree.get_root()->get_child(1)->get_child(0)->set_value(6);
+
+	tree.get_root()->get_child(1)->add_new_child();
+	tree.get_root()->get_child(1)->get_child(1)->set_value(7);
+
+	std::cout << std::endl << "print tree: ";
+	tree.print_tree();
+	std::cout << std::endl;
+
+}
+
+void test_dynamic_tree_move_subtree()
+{
+	TreeDynamic tree1;
+
+	tree1.get_root()->add_new_child();
+	tree1.get_root()->get_child(0)->set_value(1);
+
+	tree1.get_root()->add_new_child();
+	tree1.get_root()->get_child(1)->set_value(2);
+
+	tree1.get_root()->add_new_child();
+	tree1.get_root()->get_child(2)->set_value(3);
+
+	tree1.get_root()->get_child(2)->add_new_child();
+	tree1.get_root()->get_child(2)->get_child(0)->set_value(4);
+
+	std::cout << std::endl << "first" << std::endl;
+	tree1.print_tree();
+	std::cout << std::endl;
+
+	TreeDynamic tree2;
+
+	tree2.get_root()->set_value(50);
+
+	tree2.get_root()->add_new_child();
+	tree2.get_root()->get_child(0)->set_value(54);
+
+	tree2.get_root()->get_child(0)->add_new_child();
+	tree2.get_root()->get_child(0)->get_child(0)->set_value(56);
+
+	tree2.get_root()->get_child(0)->get_child(0)->add_new_child();
+	tree2.get_root()->get_child(0)->get_child(0)->get_child(0)->set_value(58);
+
+	tree2.get_root()->get_child(0)->add_new_child();
+	tree2.get_root()->get_child(0)->get_child(1)->set_value(57);
+
+	tree2.get_root()->add_new_child();
+	tree2.get_root()->get_child(1)->set_value(55);
+
+	std::cout << std::endl << "second" << std::endl;
+	tree2.print_tree();
+	std::cout << std::endl;
+
+	tree1.move_subtree(tree1.get_root()->get_child(2), tree2.get_root()->get_child(0));
+
+	std::cout << std::endl << "first" << std::endl;
+	tree1.print_tree();
+	std::cout << std::endl;
+	std::cout << std::endl << "second" << std::endl;
+	tree2.print_tree();
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
+
+void test_static_tree_move_subtree()
+{
+	TreeStatic tree1;
+
+	tree1.get_root()->add_new_child();
+	tree1.get_root()->get_child(0)->set_value(1);
+
+	tree1.get_root()->add_new_child();
+	tree1.get_root()->get_child(1)->set_value(2);
+
+	tree1.get_root()->add_new_child();
+	tree1.get_root()->get_child(2)->set_value(3);
+
+	tree1.get_root()->get_child(2)->add_new_child();
+	tree1.get_root()->get_child(2)->get_child(0)->set_value(4);
+
+	std::cout << std::endl << "first" << std::endl;
+	tree1.print_tree();
+	std::cout << std::endl;
+
+	TreeStatic tree2;
+
+	tree2.get_root()->set_value(50);
+
+	tree2.get_root()->add_new_child();
+	tree2.get_root()->get_child(0)->set_value(54);
+
+	tree2.get_root()->get_child(0)->add_new_child();
+	tree2.get_root()->get_child(0)->get_child(0)->set_value(56);
+
+	tree2.get_root()->get_child(0)->get_child(0)->add_new_child();
+	tree2.get_root()->get_child(0)->get_child(0)->get_child(0)->set_value(58);
+
+	tree2.get_root()->get_child(0)->add_new_child();
+	tree2.get_root()->get_child(0)->get_child(1)->set_value(57);
+
+	tree2.get_root()->add_new_child();
+	tree2.get_root()->get_child(1)->set_value(55);
+
+	std::cout << std::endl << "second" << std::endl;
+	tree2.print_tree();
+	std::cout << std::endl;
+
+	NodeStatic* parent = tree1.get_root()->get_child(2);
+	NodeStatic* new_child = tree2.get_root()->get_child(0);
+	tree1.move_subtree(parent, new_child);
+
+	std::cout << std::endl << "first" << std::endl;
+	tree1.print_tree();
+	std::cout << std::endl << std::endl << "second" << std::endl;
+	tree2.print_tree();
+	std::cout << std::endl << std::endl;
+}
+
+void test_counting_nodes()
+{
+	TreeDynamic tree1;
+
+	tree1.get_root()->add_new_child();
+	tree1.get_root()->get_child(0)->set_value(1);
+
+	tree1.get_root()->add_new_child();
+	tree1.get_root()->get_child(1)->set_value(2);
+
+	tree1.get_root()->add_new_child();
+	tree1.get_root()->get_child(2)->set_value(3);
+	
+	tree1.get_root()->add_new_child();
+	tree1.get_root()->get_child(3)->set_value(4);
+
+	tree1.get_root()->get_child(2)->add_new_child();
+	tree1.get_root()->get_child(2)->get_child(0)->set_value(4);
+
+	tree1.get_root()->get_child(2)->get_child(0)->add_new_child();
+	tree1.get_root()->get_child(2)->get_child(0)->get_child(0)->set_value(4);
+
+	std::cout << std::endl << "Tree:" << std::endl;
+	tree1.print_tree();
+	
+	std::cout << std::endl << "Liczba węzłów o wartości 4: " << tree1.count_nodes(20) << std::endl << std::endl;
+}
+
 int main()
 {
-	tree_destructor_test();
+	test_counting_nodes();
 }
