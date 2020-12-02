@@ -1,15 +1,17 @@
 #include "NodeDynamic.h"
 #include <iostream>
 #include "Consts.h"
-
-NodeDynamic::NodeDynamic()
+/*
+template<typename T>
+NodeDynamic<T>::NodeDynamic()
 {
 	_val = 0;
 	_parent_node = NULL;
 	std::cout << NODE_NO_PARAM_CONSTRUCTOR_TEXT << std::endl;
 }
 
-NodeDynamic::NodeDynamic(const NodeDynamic& other)
+template<typename T>
+NodeDynamic<T>::NodeDynamic(const NodeDynamic<T>& other)
 {
 	_parent_node = other._parent_node;
 	_val = other._val;
@@ -17,7 +19,8 @@ NodeDynamic::NodeDynamic(const NodeDynamic& other)
 	std::cout << NODE_COPY_CONSTRUCTOR_TEXT << " val:" << _val << std::endl;
 }
 
-NodeDynamic::NodeDynamic(NodeDynamic&& other)
+template<typename T>
+NodeDynamic<T>::NodeDynamic(NodeDynamic<T>&& other)
 {
 	_parent_node = other._parent_node;
 	other._parent_node = NULL;
@@ -28,7 +31,8 @@ NodeDynamic::NodeDynamic(NodeDynamic&& other)
 	std::cout << NODE_MOVE_CONSTRUCTOR_TEXT << " val:" << _val << std::endl;
 }
 
-NodeDynamic::~NodeDynamic()
+template<typename T>
+NodeDynamic<T>::~NodeDynamic()
 {
 	std::cout << NODE_DESTRUCTOR_TEXT << " val:" << _val << std::endl;
 
@@ -40,17 +44,20 @@ NodeDynamic::~NodeDynamic()
 	_children.clear();
 }
 
-void NodeDynamic::set_value(int new_val)
+template<typename T>
+void NodeDynamic<T>::set_value(int new_val)
 {
 	_val = new_val;
 }
 
-int NodeDynamic::get_children_number()
+template<typename T>
+int NodeDynamic<T>::get_children_number()
 {
 	return _children.size();
 }
 
-int NodeDynamic::get_child_index(NodeDynamic* node)
+template<typename T>
+int NodeDynamic<T>::get_child_index(NodeDynamic<T>* node)
 {
 	for (int i = 0; i < static_cast<int>(_children.size()); i++)
 	{
@@ -62,39 +69,40 @@ int NodeDynamic::get_child_index(NodeDynamic* node)
 	return -1;
 }
 
-int NodeDynamic::hash_code()
+template<typename T>
+T NodeDynamic<T>::get_value()
 {
 	return _val;
 }
 
-int NodeDynamic::get_value()
-{
-	return _val;
-}
-
-void NodeDynamic::set_parent(NodeDynamic* node)
+template<typename T>
+void NodeDynamic<T>::set_parent(NodeDynamic<T>* node)
 {
 	_parent_node = node;
 }
 
-void NodeDynamic::add_new_child()
+template<typename T>
+void NodeDynamic<T>::add_new_child()
 {
-	NodeDynamic* child = new NodeDynamic();
+	NodeDynamic<T>* child = new NodeDynamic<T>();
 	child->set_parent(this);
 	_children.push_back(child);
 }
 
-NodeDynamic* NodeDynamic::get_child(int child_offset)
+template<typename T>
+NodeDynamic<T>* NodeDynamic<T>::get_child(int child_offset)
 {
 	return _children[child_offset];
 }
 
-void NodeDynamic::print()
+template<typename T>
+void NodeDynamic<T>::print()
 {
 	std::cout << " " << _val;
 }
 
-void NodeDynamic::print_all_below()
+template <typename T>
+void NodeDynamic<T>::print_all_below()
 {
 	print();
 	for (int i = 0; i < static_cast<int>(_children.size()); i++)
@@ -103,7 +111,8 @@ void NodeDynamic::print_all_below()
 	}
 }
 
-NodeDynamic& NodeDynamic::operator=(const NodeDynamic& other)
+template <typename T>
+NodeDynamic<T>& NodeDynamic<T>::operator=(const NodeDynamic<T>& other)
 {
 	if (this != &other)
 	{
@@ -114,7 +123,8 @@ NodeDynamic& NodeDynamic::operator=(const NodeDynamic& other)
 	return *this;
 }
 
-NodeDynamic& NodeDynamic::operator=(NodeDynamic&& other)
+template <typename T>
+NodeDynamic<T>& NodeDynamic<T>::operator=(NodeDynamic<T>&& other)
 {
 	_parent_node = other._parent_node;
 	other._parent_node = NULL;
@@ -125,19 +135,23 @@ NodeDynamic& NodeDynamic::operator=(NodeDynamic&& other)
 	return *this;
 }
 
-void NodeDynamic::add_child(NodeDynamic* node)
+template <typename T>
+void NodeDynamic<T>::add_child(NodeDynamic<T>* node)
 {
 	_children.push_back(node);
 	node->set_parent(this);
 }
 
-NodeDynamic* NodeDynamic::get_parent()
+template <typename T>
+NodeDynamic<T>* NodeDynamic<T>::get_parent()
 {
 	return _parent_node;
 }
 
-void NodeDynamic::remove_child(NodeDynamic* node)
+template <typename T>
+void NodeDynamic<T>::remove_child(NodeDynamic<T>* node)
 {
 	node->set_parent(NULL);
 	_children.erase(_children.begin() + get_child_index(node));
 }
+*/

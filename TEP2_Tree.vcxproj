@@ -139,10 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="NodeDynamic.cpp" />
     <ClCompile Include="NodeStatic.cpp" />
     <ClCompile Include="TEP2_Tree.cpp" />
-    <ClCompile Include="TreeDynamic.cpp" />
     <ClCompile Include="TreeStatic.cpp" />
   </ItemGroup>
   <ItemGroup>
